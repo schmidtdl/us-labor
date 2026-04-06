@@ -227,12 +227,17 @@ def layoffs_table_html(df: pd.DataFrame) -> str:
     header = "".join(f"<th style='{TH}'>{lbl}</th>" for lbl, _ in COLS.values())
 
     df = df.copy()
-    df["_d"] = pd.to_datetime(df["date_of_announcement"], errors="coerce")
+    df["_d"] = pd.to_datetime(df["date_of_announcement"], format="%b-%y", errors="coerce")
     df = df.sort_values("_d", ascending=False).drop(columns="_d")
 
     def fmt_date(v):
-        try:    return pd.to_datetime(v).strftime("%b %Y")
-        except: return str(v)
+        try:    
+            return pd.to_datetime(v, format="%b-%y").strftime("%b %Y")
+        except:
+            try: 
+                return pd.to_datetime(v).strftime("%b %Y")
+            except: 
+                return str(v)
 
     def fmt_layoffs(v):
         try:    return f"{int(v):,}"
