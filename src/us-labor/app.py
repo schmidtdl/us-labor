@@ -55,7 +55,8 @@ CSS = """
     border: 0px solid #dcd9d5 !important; border-radius: 6px !important;
   }
   .stNumberInput input, .stSelectbox input, .stSelectbox [data-baseweb="select"] div {
-    color: inherit !important;
+    color: #28251d !important;
+    background-color: #ffffff !important;
   }
   hr { border-color: #dcd9d5; margin: 1rem 0; }
   .metric-card  { background: #ffffff; border: 1px solid #dcd9d5; border-radius: 8px; padding: 14px 18px; }
