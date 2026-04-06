@@ -7,7 +7,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 
-# ── Constants ─────────────────────────────────────────────────────────────────
+# Constants
 COVID_START = "2020-02-01"
 COVID_END = "2021-12-01"
 COLORS = dict(
@@ -79,7 +79,7 @@ CSS = """
 </style>
 """
 
-# ── Data ──────────────────────────────────────────────────────────────────────
+# Data
 @st.cache_data
 def load_data() -> pd.DataFrame:
     df = pd.read_csv(BASE_DIR / "assets" / "raw.csv", index_col="dates")
@@ -96,10 +96,10 @@ def compute_trend(span: int = 12) -> pd.DataFrame:
 
 @st.cache_data
 def compute_matrix(months: int, net_migration: float, trend: float):
-    calc  = ct.UnemploymentCalculator(load_data())
+    calc = ct.UnemploymentCalculator(load_data())
     ratio = ct.calculate_release_ratio(load_data(), period=12)
     shared = dict(months=months, source_ratio=ratio, net_migration_growth_estimate=net_migration)
-    matrix     = calc.build_breakeven_table(**shared)
+    matrix = calc.build_breakeven_table(**shared)
     expected_ur = calc.extrapolate_unemployment_rate(**shared, trend_rate=trend)
     return matrix, calc.last_participation * 100, calc.last_unemployment_rate * 100, calc.last_date, expected_ur * 100
 
@@ -111,7 +111,7 @@ def compute_beveridge(include_covid: bool) -> pd.DataFrame:
 def compute_sectors() -> pd.DataFrame:
     return ct.UnemploymentSector(load_data()).calculate_sector_slack().dropna().iloc[-120:]
 
-# ── Colour helpers ────────────────────────────────────────────────────────────
+# Colour helpers
 def lerp(c1: tuple, c2: tuple, t: float) -> str:
     return "#{:02x}{:02x}{:02x}".format(*(int(a + (b - a) * t) for a, b in zip(c1, c2)))
 
@@ -135,7 +135,7 @@ def signed(val: float) -> str:
 def value_color(val: float, pos="#32CD32", zero=None, neg="#a12c7b") -> str:
     return pos if val > 0 else (zero or COLORS["teal"]) if val == 0 else neg
 
-# ── Shared chart layout ───────────────────────────────────────────────────────
+# Shared chart layout
 def base_layout(height: int, **overrides) -> dict:
     C = COLORS
     layout = dict(
@@ -144,11 +144,23 @@ def base_layout(height: int, **overrides) -> dict:
         margin=dict(l=0, r=0, t=16, b=0),
         height=height,
         font=dict(family="Inter", color=C["text"], size=11),
-        xaxis=dict(showgrid=False, zeroline=False, tickfont=dict(color=C["muted"], size=10),
-                   showline=True, linecolor=C["grey"], linewidth=1),
-        yaxis=dict(showgrid=True,  gridcolor="#edeae5", zeroline=False,
-                   tickfont=dict(color=C["muted"], size=10),
-                   showline=True, linecolor=C["grey"], linewidth=1),
+        xaxis=dict(
+            showgrid=False, 
+            zeroline=False, 
+            tickfont=dict(color=C["muted"], size=10),
+            showline=True, 
+            linecolor=C["grey"], 
+            linewidth=1
+        ),
+        yaxis=dict(
+            showgrid=True,  
+            gridcolor="#edeae5", 
+            zeroline=False,
+            tickfont=dict(color=C["muted"], size=10),
+            showline=True, 
+            linecolor=C["grey"], 
+            linewidth=1
+        ),
     )
 
     for k, v in overrides.items():
@@ -162,14 +174,18 @@ def axis(title: str, suffix: str = "", grid: bool = True, **kw) -> dict:
     C = COLORS
     return dict(
         title=dict(text=title, font=dict(size=11, color=C["muted"])),
-        showgrid=grid, gridcolor="#edeae5", zeroline=False,
+        showgrid=grid, 
+        gridcolor="#edeae5", 
+        zeroline=False,
         tickfont=dict(color=C["muted"], size=10),
         ticksuffix=suffix,
-        showline=True, linecolor=C["grey"], linewidth=1,
+        showline=True, 
+        linecolor=C["grey"], 
+        linewidth=1,
         **kw,
     )
 
-# ── HTML builders ─────────────────────────────────────────────────────────────
+# HTML builders
 def md(html: str):
     st.markdown(html, unsafe_allow_html=True)
 
@@ -221,11 +237,11 @@ def layoffs_table_html(df: pd.DataFrame) -> str:
     TD = "padding:8px 14px;border-bottom:1px solid #edeae5;vertical-align:top;"
 
     COLS = {
-        "company":                   ("Company",  "font-weight:600;color:#28251d;white-space:nowrap;"),
-        "date_of_announcement":      ("Date Announced",     "color:#7a7974;white-space:nowrap;"),
-        "number_of_layoffs_planned": ("Number of Layoffs",  "color:#7a7974;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;"),
-        "sector":                    ("Sector",   "white-space:nowrap;"),
-        "one_line_comment":          ("Comment",  "color:#7a7974;font-size:0.82rem;"),
+        "company": ("Company", "font-weight:600;color:#28251d;white-space:nowrap;"),
+        "date_of_announcement": ("Date Announced", "color:#7a7974;white-space:nowrap;"),
+        "number_of_layoffs_planned": ("Number of Layoffs", "color:#7a7974;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;"),
+        "sector": ("Sector", "white-space:nowrap;"),
+        "one_line_comment": ("Comment", "color:#7a7974;font-size:0.82rem;"),
     }
 
     header = "".join(f"<th style='{TH}'>{lbl}</th>" for lbl, _ in COLS.values())
@@ -244,16 +260,18 @@ def layoffs_table_html(df: pd.DataFrame) -> str:
                 return str(v)
 
     def fmt_layoffs(v):
-        try:    return f"{int(v):,}"
-        except: return str(v)
+        try:    
+            return f"{int(v):,}"
+        except: 
+            return str(v)
 
     def pill(text):
         return f"<span style='background:#f0ede8;color:#7a7974;font-size:0.72rem;padding:2px 8px;border-radius:4px;'>{text}</span>"
 
     rows = ""
     for i, (_, r) in enumerate(df.iterrows()):
-        bg    = "#ffffff" if i % 2 == 0 else "#f9f8f5"
-        vals  = [r["company"], fmt_date(r["date_of_announcement"]),
+        bg = "#ffffff" if i % 2 == 0 else "#f9f8f5"
+        vals = [r["company"], fmt_date(r["date_of_announcement"]),
                  fmt_layoffs(r["number_of_layoffs_planned"]), pill(r["sector"]), r["one_line_comment"]]
         cells = "".join(
             f"<td style='background:{bg};{TD}{sty}'>{v}</td>"
@@ -269,20 +287,27 @@ def layoffs_table_html(df: pd.DataFrame) -> str:
         f"{len(df):,} announcements in the last twelve months &nbsp;·&nbsp; collected by ChatGPT API &nbsp;·&nbsp; scroll to view all</p>"
     )
 
-# ── Charts ────────────────────────────────────────────────────────────────────
+# Charts
 
 def trend_chart(df: pd.DataFrame, breakeven_nfp: float) -> go.Figure:
     be_color = value_color(breakeven_nfp, "#437a22", neg="#a12c7b")
     fig = go.Figure()
     fig.add_trace(go.Scatter(
-        x=df.index, y=df["nfp"], fill="tozeroy", fillcolor="rgba(1,105,111,0.08)",
-        line=dict(color=COLORS["teal"], width=2), name="NFP EMA",
+        x=df.index, 
+        y=df["nfp"], 
+        fill="tozeroy", 
+        fillcolor="rgba(1,105,111,0.08)",
+        line=dict(color=COLORS["teal"], width=2), 
+        name="NFP EMA",
         hovertemplate="%{x|%b %Y}<br>Trend NFP Δ: <b>%{y:.0f}k</b><extra></extra>",
     ))
-    fig.add_hline(y=breakeven_nfp, line=dict(color=be_color, width=1.5, dash="dash"),
-                  annotation_text=f"Breakeven: {signed(breakeven_nfp)}{breakeven_nfp:,}k",
-                  annotation_position="top right",
-                  annotation_font=dict(color=be_color, size=11))
+    fig.add_hline(
+        y=breakeven_nfp, 
+        line=dict(color=be_color, width=1.5, dash="dash"),
+        annotation_text=f"Breakeven: {signed(breakeven_nfp)}{breakeven_nfp:,}k",
+        annotation_position="top right",
+        annotation_font=dict(color=be_color, size=11)
+    )
     fig.add_hline(y=0, line=dict(color=COLORS["grey"], width=1))
     fig.update_layout(**base_layout(340, hovermode="x unified",
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0,
@@ -294,10 +319,10 @@ def trend_chart(df: pd.DataFrame, breakeven_nfp: float) -> go.Figure:
 
 
 def beveridge_chart(df: pd.DataFrame, include_covid: bool) -> go.Figure:
-    covid_mask  = (df.index >= COVID_START) & (df.index <= COVID_END)
-    pre_post    = df[~covid_mask].copy()
-    covid       = df[covid_mask].copy()
-    n           = len(pre_post)
+    covid_mask = (df.index >= COVID_START) & (df.index <= COVID_END)
+    pre_post = df[~covid_mask].copy()
+    covid = df[covid_mask].copy()
+    n = len(pre_post)
     NAVY, AMBER, GOLD = (30, 60, 114), (217, 119, 6), (250, 204, 21)
 
     def pos_color(i):
@@ -306,41 +331,65 @@ def beveridge_chart(df: pd.DataFrame, include_covid: bool) -> go.Figure:
 
     fig = go.Figure()
     fig.add_trace(go.Scatter(
-        x=pre_post["unemployment rate"], y=pre_post["job openings"],
-        mode="markers", name="", showlegend=False,
+        x=pre_post["unemployment rate"], 
+        y=pre_post["job openings"],
+        mode="markers", 
+        name="", 
+        showlegend=False,
         marker=dict(color=[pos_color(i) for i in range(n)], size=8, opacity=0.85,
                     line=dict(color="rgba(255,255,255,0.4)", width=0.5)),
         text=[d.strftime("%b %Y") for d in pre_post.index],
         hovertemplate="<b>%{text}</b><br>Unemployment: <b>%{x:.1f}%</b><br>Job Openings: <b>%{y:.1f}%</b><extra></extra>",
     ))
-    # Legend anchors for gradient endpoints
+
     for label, rgb in [("2001", NAVY), ("2026", GOLD)]:
-        fig.add_trace(go.Scatter(x=[None], y=[None], mode="markers", name=label,
-                                 marker=dict(color=f"rgb{rgb}", size=8), showlegend=True))
+        fig.add_trace(go.Scatter(
+            x=[None], 
+            y=[None], 
+            mode="markers", 
+            name=label,
+            marker=dict(color=f"rgb{rgb}", size=8), showlegend=True))
     if include_covid and not covid.empty:
         fig.add_trace(go.Scatter(
-            x=covid["unemployment rate"], y=covid["job openings"],
-            mode="markers", name="Covid (2020–21)",
-            marker=dict(color="#c0bdb8", size=6, opacity=0.6,
-                        line=dict(color="rgba(255,255,255,0.4)", width=0.5)),
+            x=covid["unemployment rate"], 
+            y=covid["job openings"],
+            mode="markers", 
+            name="Covid (2020–21)",
+            marker=dict(
+                color="#c0bdb8", 
+                size=6, 
+                opacity=0.6,
+                line=dict(color="rgba(255,255,255,0.4)", width=0.5)
+            ),
             text=[d.strftime("%b %Y") for d in covid.index],
             hovertemplate="<b>%{text}</b><br>Unemployment: <b>%{x:.1f}%</b><br>Job Openings: <b>%{y:.1f}%</b><extra></extra>",
         ))
     latest = pre_post.iloc[-1]
     latest_date = pre_post.index[-1].strftime("%b %Y")
     fig.add_trace(go.Scatter(
-        x=[latest["unemployment rate"]], y=[latest["job openings"]],
-        mode="markers+text", name="Latest",
+        x=[latest["unemployment rate"]], 
+        y=[latest["job openings"]],
+        mode="markers+text", 
+        name="Latest",
         marker=dict(color="#f43f5e", size=13, line=dict(color="#ffffff", width=2.5)),
-        text=[f"  {latest_date}"], textposition="middle right",
+        text=[f"  {latest_date}"], 
+        textposition="middle right",
         textfont=dict(color="#f43f5e", size=10, family="Inter"),
         customdata=[latest_date],
         hovertemplate="<b>Latest · %{customdata}</b><br>Unemployment: <b>%{x:.1f}%</b><br>Job Openings: <b>%{y:.1f}%</b><extra></extra>",
     ))
     fig.update_layout(**base_layout(460, hovermode="closest",
-        legend=dict(orientation="v", yanchor="top", y=0.99, xanchor="right", x=0.99,
-                    bgcolor="rgba(255,255,255,0.85)", bordercolor=COLORS["grey"], borderwidth=1,
-                    font=dict(size=10, color=COLORS["muted"])),
+        legend=dict(
+            orientation="v", 
+            yanchor="top", 
+            y=0.99, 
+            xanchor="right", 
+            x=0.99,
+            bgcolor="rgba(255,255,255,0.85)", 
+            bordercolor=COLORS["grey"], 
+            borderwidth=1,
+            font=dict(size=10, color=COLORS["muted"])
+        ),
         xaxis=axis("Unemployment Rate (%)", suffix="%"),
         yaxis=axis("Job Openings Rate (%)",  suffix="%"),
     ))
@@ -348,36 +397,51 @@ def beveridge_chart(df: pd.DataFrame, include_covid: bool) -> go.Figure:
 
 
 def sector_vu_chart(df: pd.DataFrame) -> go.Figure:
-    latest    = df.iloc[-1]
-    median    = df.median()
-    order     = latest.sort_values(ascending=True).index.tolist()
-    sectors   = [SECTOR_LABELS.get(s, s) for s in order]
-    lat_val   = [latest[s] for s in order]
-    med_val   = [median[s] for s in order]
+    latest = df.iloc[-1]
+    median = df.median()
+    order = latest.sort_values(ascending=True).index.tolist()
+    sectors = [SECTOR_LABELS.get(s, s) for s in order]
+    lat_val = [latest[s] for s in order]
+    med_val = [median[s] for s in order]
     bar_colors = [COLORS["teal"] if lv >= mv else "#cc4125" for lv, mv in zip(lat_val, med_val)]
 
     fig = go.Figure()
     fig.add_trace(go.Bar(
-        x=lat_val, y=sectors, orientation="h", name="Latest",
+        x=lat_val, 
+        y=sectors, 
+        orientation="h", 
+        name="Latest",
         marker=dict(color=bar_colors, opacity=0.85),
         hovertemplate="<b>%{y}</b><br>Latest: <b>%{x:.2f}</b><extra></extra>",
     ))
     fig.add_trace(go.Scatter(
-        x=med_val, y=sectors, mode="markers", name="10-Year Median",
+        x=med_val, 
+        y=sectors, 
+        mode="markers", 
+        name="10-Year Median",
         marker=dict(symbol="diamond", color=COLORS["text"], size=8, line=dict(color="#ffffff", width=1)),
         hovertemplate="<b>%{y}</b><br>Median: <b>%{x:.2f}</b><extra></extra>",
     ))
     fig.update_layout(**base_layout(500, hovermode="y unified", bargap=0.35,
         margin=dict(l=0, r=16, t=16, b=0),
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0,
-                    bgcolor="rgba(0,0,0,0)", font=dict(size=10, color=COLORS["muted"])),
+        legend=dict(
+            orientation="h", 
+            yanchor="bottom", y=1.02, 
+            xanchor="left", x=0,
+            bgcolor="rgba(0,0,0,0)", 
+            font=dict(size=10, color=COLORS["muted"])
+        ),
         xaxis=axis("Job Openings / Unemployed"),
-        yaxis=dict(showgrid=False, zeroline=False, showline=False,
-                   tickfont=dict(color=COLORS["muted"], size=10)),
+        yaxis=dict(
+            showgrid=False, 
+            zeroline=False, 
+            showline=False,
+            tickfont=dict(color=COLORS["muted"], size=10)
+        ),
     ))
     return fig
 
-# ── App ───────────────────────────────────────────────────────────────────────
+# App
 
 PLOTLY_CFG = {"displayModeBar": False}
 
@@ -399,17 +463,17 @@ def main():
        "</p><hr style='border-color:#dcd9d5;'/>")
 
     # Data
-    df_trend     = compute_trend()
+    df_trend = compute_trend()
     trend_latest = df_trend["nfp"].iloc[-1]
     df_matrix, last_lfpr, last_ur, last_date, exp_ur = compute_matrix(months, net_migration, trend_latest)
-    sector_vu    = compute_sectors()
-    layoffs      = load_layoffs()
+    sector_vu = compute_sectors()
+    layoffs = load_layoffs()
 
     lfpr_labels, ur_labels = list(df_matrix.index), list(df_matrix.columns)
-    matrix   = df_matrix.values.tolist()
+    matrix = df_matrix.values.tolist()
     all_vals = [v for row in matrix for v in row]
-    v_max    = max((v for v in all_vals if v > 0), default=1)
-    v_min    = min((v for v in all_vals if v < 0), default=-1)
+    v_max = max((v for v in all_vals if v > 0), default=1)
+    v_min = min((v for v in all_vals if v < 0), default=-1)
 
     nearest = lambda labels, val: min(range(len(labels)), key=lambda i: abs(float(labels[i].strip("%")) - val))
     lfpr_idx, ur_idx  = nearest(lfpr_labels, last_lfpr), nearest(ur_labels, last_ur)
