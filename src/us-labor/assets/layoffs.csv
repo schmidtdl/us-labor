@@ -2,6 +2,7 @@ company,date_of_announcement,number_of_layoffs_planned,sector,one_line_comment
 Meta,Mar-26,"Roughly 15,800 or more",Technology,Sweeping cuts reported as part of efficiency efforts amid heavy AI spending.
 Morgan Stanley,Mar-26,"About 2,500",Finance,Broad reductions across divisions tied to performance and strategy.
 Atlassian,Mar-26,"Roughly 1,600",Technology,Pivot toward AI and enterprise sales.
+Oracle,Mar-26,25000,Technology,Beginning layoffs affecting thousands of employees as part of a restructuring tied to heavy AI and cloud infrastructure spending.
 Gemini Space Station,Feb-26,Up to 200,Finance,Scaling back parts of its international footprint on the path to profitability.
 Block,Feb-26,"Over 4,000",Technology,CEO said AI lets the company operate with fewer employees.
 Washington Post,Feb-26,About one-third of staff; absolute number not given,Media,Shrinking news coverage drove the cuts.
@@ -19,13 +20,28 @@ UPS,Jan-26,"Up to 30,000",Logistics,Lower Amazon delivery volumes drove the redu
 Peloton,Jan-26,11% of workforce; absolute number not given,Consumer Retail,Cost-cutting as part of turnaround efforts.
 Citigroup,Jan-26,"About 1,000",Finance,Part of Citi’s multiyear headcount reduction program.
 Mastercard,Jan-26,About 4% of workforce; absolute number not given,Finance,Refocusing investment toward other priorities.
+Saks,Jan-26,Not disclosed,Consumer Retail,High-end retailer included among early-2026 U.S. firms cutting jobs to improve efficiency.
+Eastman Chemical,Nov-25,About 980,Energy and Natural Resources,Roughly 7% headcount reduction as part of cost-saving measures amid weaker demand.
+Newmont,Nov-25,16% of workforce affected,Energy and Natural Resources,"Major rejig impacting 16% of positions, combining layoffs, vacancy eliminations and redefined roles."
+Tyson Foods,Nov-25,"About 4,900",Consumer Retail,"Plant closures and consolidations affecting nearly 5,000 workers in Nebraska and Texas."
+Hormel Foods,Nov-25,About 250,Consumer Retail,Cuts in corporate and sales jobs equal to roughly 1.25% of workforce.
+Verizon,Nov-25,"About 13,000",Telecom,Layoffs totaling about 14% of staff as Verizon restructures for cost savings.
+Synopsys,Nov-25,"About 2,000",Technology,Chip-design software firm slashing roughly 10% of jobs in a restructuring.
+IBM,Nov-25,Thousands (exact figure not disclosed),Technology,Large layoffs as IBM pivots further toward higher-margin software and services.
+BCE,Nov-25,About 690,Telecom,"North American telecom/media group cutting several hundred roles, including some U.S. staff."
 Target,Oct-25,"1,800",Consumer Retail,First major layoffs in about a decade as Target seeks to revive growth.
+General Motors,Oct-25,"3,300 (1,750 job cuts + 1,550 temporary layoffs)",Autos,"Workforce actions equal to about 2% of staff, combining permanent and temporary cuts."
+UPS,Oct-25,"48,000",Logistics,Additional large UPS layoff round aimed at cutting low-margin volumes.
+Paramount Skydance,Oct-25,"Around 1,000",Media and Entertainment,"Major round of cuts at the merged media group, reportedly about 1,000 jobs."
+Rivian Automotive,Oct-25,More than 600,Technology,"EV maker trimming over 600 positions, about 4.5% of its workforce."
+Chegg,Oct-25,388,Technology,Second major 2025 layoff as Chegg responds to slower growth and AI disruption.
 Exxon,Sep-25,"2,000",Energy and Natural Resources,Reported cuts equal to roughly 3%–4% of workforce.
 Starbucks,Sep-25,"2,000",Consumer Retail,Store closures and restructuring.
 Procter & Gamble,Jun-25,"7,000",Consumer Retail,Multiyear restructuring affecting about 6% of staff.
 CrowdStrike,May-25,500,Technology,5% workforce reduction while reaffirming outlook.
 Walmart,May-25,"1,500",Consumer Retail,Reported job cuts as part of restructuring.
 Match Group,May-25,13% of workforce; absolute number not given,Technology,Cuts announced alongside revenue guidance.
+Chegg,May-25,248,Technology,First 2025 layoff round cutting about 22% of staff.
 Intel,Apr-25,Over 20% of workforce; absolute number not given,Technology,Reuters described the move as a major restructuring.
 APA,Mar-25,300,Energy and Natural Resources,"Nearly 15% workforce reduction, according to Reuters."
 Morgan Stanley,Mar-25,"About 2,000",Finance,"Efficiency-driven cuts, per Reuters."
@@ -36,11 +52,11 @@ Southwest Airlines,Feb-25,"1,750",Aviation,About 15% of corporate roles cut.
 Blue Origin,Feb-25,"1,400",Aviation,About 10% workforce reduction.
 ADM,Feb-25,Up to 700,Energy and Natural Resources,Announced amid weak crush margins.
 LyondellBasell,Feb-25,400,Energy and Natural Resources,Houston refinery cuts tied to operational changes.
+Halliburton,Feb-25,290,Energy and Natural Resources,Oilfield services group reducing headcount amid sector softness.
+UnitedHealth,Feb-25,Not disclosed (buyouts with potential layoffs),Healthcare,Offering buyouts in benefits operations and warning layoffs may follow if targets are not met.
+Bio-Rad,Feb-25,About 5% of workforce,Healthcare,Life-sciences company cutting roughly 5% of staff as part of restructuring.
 Kohl's,Jan-25,"9,600",Consumer Retail,Corporate workforce reduction equal to about 10% of staff.
 Brown-Forman,Jan-25,648,Consumer Retail,Global restructuring affecting about 12% of workforce.
 Dow,Jan-25,"1,500",Energy and Natural Resources,Cost action following weaker earnings.
 SolarEdge Technologies,Jan-25,400,Energy and Natural Resources,Global cuts amid solar sector pressure.
-Oracle,Mar-26,25000,Technology,"Beginning layoffs affecting thousands of employees as part of a restructuring tied to heavy AI and cloud infrastructure spending."
-Saks,Jan-26,Not disclosed,Consumer Retail,"High-end retailer included among early-2026 U.S. firms cutting jobs to improve efficiency."
-Eastman Chemical,Nov-25,About 980,Energy and Natural Resources,"Roughly 7% headcount reduction as part of cost-saving measures amid weaker demand."
-Newmont,Nov-25,16% of workforce affected,Energy and Natural Resources,"Major rejig impacting 16% of positions, combining layoffs, vacancy eliminations and redefined roles."
+Wayfair,Jan-25,730 (Germany),Consumer Retail,E-commerce furniture retailer trimming international staff in a broader cost-cut drive.
