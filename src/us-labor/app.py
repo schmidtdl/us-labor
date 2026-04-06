@@ -222,7 +222,7 @@ def layoffs_table_html(df: pd.DataFrame) -> str:
     COLS = {
         "company":                   ("Company",  "font-weight:600;color:#28251d;white-space:nowrap;"),
         "date_of_announcement":      ("Date Announced",     "color:#7a7974;white-space:nowrap;"),
-        "number_of_layoffs_planned": ("Number of Layoffs",  "text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;"),
+        "number_of_layoffs_planned": ("Number of Layoffs",  "color:#7a7974;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;"),
         "sector":                    ("Sector",   "white-space:nowrap;"),
         "one_line_comment":          ("Comment",  "color:#7a7974;font-size:0.82rem;"),
     }
